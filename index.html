@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puntos Azules - Tu Guía Sobre el Desecho de Medicamentos</title>
+    <link rel="icon" href="images/Logo_punto_azul-removebg-preview.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url(images/FONDO.png);
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #333;
+        }
+        /* Menú de navegación */
+        nav {
+            background-color: #7ac1f1;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav li {
+            margin: 0;
+        }
+        nav a {
+            display: block;
+            padding: 15px 20px;
+            color: rgb(22, 17, 17);
+            text-decoration: none;
+            transition: background-color 0.3s;
+            text-align: center; /* Centrar texto de los items */
+        }
+        nav a:hover {
+            background-color: #467eb9;
+        }
+        /* Menú desplegable para móviles */
+        .menu-toggle {
+            display: none;
+        }
+        .menu-toggle-label {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            nav {
+                height: 60px; /* Agregado para mantener la barra azul visible siempre en móviles */
+            }
+            nav ul {
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #71c9fc;
+                display: none;
+            }
+            nav .menu-toggle:checked ~ ul {
+                display: flex;
+            }
+            .menu-toggle-label {
+                display: block;
+            }
+        }
+        /* Slider con superposición */
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin-top: 60px; /* Altura del nav */
+        }
+        .slides {
+            display: flex;
+            width: 300%; /* 3 slides */
+            animation: slide 15s infinite; /* Cambia cada 5 segundos (más lento) */
+        }
+        .slide {
+            width: 33.33%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            33.33% { transform: translateX(-33.33%); }
+            66.66% { transform: translateX(-66.66%); }
+            100% { transform: translateX(0); }
+        }
+        /* Superposición sobre el slider */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente negro */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            z-index: 1; /* Asegura que esté encima de las imágenes */
+        }
+        .logo {
+            width: 100px; /* Tamaño como antes */
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .title {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .encouraging-word {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .slider {
+                height: 250px;
+                margin-top: 60px;
+            }
+            .slide {
+                height: 250px;
+            }
+            .logo {
+                width: 80px;
+            }
+            .title {
+                font-size: 1.5em;
+            }
+            .encouraging-word {
+                font-size: 1.2em;
+            }
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #318de4;
+        }
+        hr {
+            border: none;
+            height: 3px;
+            background-color: #007bff;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .map-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        .button {
+            display: inline-block;
+            background-color: #fff457;
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #5b94ff;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #5facff;
+            color: white;
+        }
+        /* Imágenes redondas en secciones */
+        .image-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-section img {
+            width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            border: 5px solid #43ace9;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .image-section img {
+                width: 250px;
+                height: 250px;
+            }
+        }
+        /* Centrar la sección del botón */
+        #boton {
+            text-align: center;
+        }
+        /* Tabla comparativa para qué depositar */
+        .depositar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .depositar-table th, .depositar-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .depositar-table th {
+            background-color: #007bff;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .depositar-table th, .depositar-table td {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+        }
+        /* Tarjetas para datos curiosos */
+        .datos-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .dato-card {
+            background-color: hsl(60, 87%, 94%); /* Cambiado a azul claro */
+            border: 1px solid #f3e521; /* Cambiado a azul más fuerte */
+            border-radius: 8px;
+            padding: 15px;
+            width: calc(75% - 20px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .dato-card h3 {
+            margin-top: 0;
+            color: #418cfc;
+        }
+        @media (max-width: 768px) {
+            .dato-card {
+                width: 100%;
+            }
+        }
+        /* Animaciones de scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú de navegación -->
+    <nav>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-toggle-label">☰</label>
+        <ul>
+            <li><a href="#que-son">¿Qué son?</a></li>
+            <li><a href="#objetivos">Objetivos</a></li>
+            <li><a href="#importancia">Importancia</a></li>
+            <li><a href="#que-depositar">Qué depositar</a></li>
+            <li><a href="#datos-curiosos">Datos Curiosos</a></li>
+            <li><a href="#mapa">Mapa</a></li>
+            <li><a href="#boton">Página Oficial</a></li>
+        </ul>
+    </nav>
+
+    <!-- Slider con superposición -->
+    <div class="slider">
+        <div class="slides">
+            <div class="slide" style="background-image: url(images/IMAGEN\ 7.png);"></div>
+            <div class="slide" style="background-image: url(images/IMAGEN\ 8.jpg);"></div>
+            <div class="slide" style="background-image: url(images/IMAGEN\ 9.jpeg);"></div>
+        </div>
+        <div class="overlay">
+            <img src="images/Logo_punto_azul-removebg-preview.png" alt="Logo Puntos Azules" class="logo"> <!-- Reemplaza esta URL con la imagen real del logo -->
+            <div class="title">Puntos Azules - Tu Guía Sobre el Desecho Correcto de Medicamentos</div>
+            <div class="encouraging-word">Cada punto azul representa una accion que transforma al mundo.</div>
+        </div>
+    </div>
+
+    <section id="que-son">
+        <h2 class="animate-on-scroll">¿Qué son los Puntos Azules?</h2>
+        <hr>
+        <p class="animate-on-scroll">Los Puntos Azules son contenedores especiales destinados a la recolección y disposición final de medicamentos vencidos, parcialmente usados ​​o en desuso. En Colombia, hacen parte del Programa Posconsumo de Medicamentos liderado por la Corporación Punto Azul, con apoyo del Ministerio de Ambiente y Desarrollo Sostenible y el INVIMA.</p>
+        <div class="image-section animate-on-scroll">
+            <img src="images/IMAGEN 4.jpeg" alt="Ejemplo de Punto Azul">
+        </div>
+    </section>
+
+    <section id="objetivos">
+        <h2 class="animate-on-scroll">Objetivos</h2>
+        <hr>
+        <div class="datos-cards animate-on-scroll">
+            <div class="dato-card">
+                <p>Proteger el medio ambiente: evitar la contaminación del suelo y fuentes hídricas.</p>
+            </div>
+            <div class="dato-card">
+                <p>Promover manejo responsable de residuos farmacéuticos y crear conciencia ciudadana.</p>
+            </div>
+            <div class="dato-card">
+                <p>Prevenir riesgos para la salud pública: impedir la reutilización accidental de medicamentos vencidos.</p>
+            </div>
+            <div class="dato-card">
+                <p>Fomentar la corresponsabilidad: involucrar comunidad, droguerías y laboratorios.</p>
+            </div>
+            <div class="dato-card">
+                <p>Cumplir normatividad ambiental: apoyar leyes sobre residuos peligrosos.</p>
+            </div>
+        </div>
+        <div class="image-section animate-on-scroll">
+            <img src="images/IMAGEN 3.jpeg" alt="Objetivos del reciclaje">
+        </div>
+    </section>
+
+    <section id="importancia">
+        <h2 class="animate-on-scroll">Importancia</h2>
+        <hr>
+        <p class="animate-on-scroll">Los Puntos Azules en Colombia son fundamentales para proteger la salud pública y el medio ambiente.
+Evitan que los medicamentos vencidos o en desuso contaminen el agua, el suelo y los ecosistemas, y reducen el riesgo de intoxicaciones accidentales en hogares y comunidades. Gracias a estos puntos, se garantiza una disposición segura, responsable y controlada de residuos farmacéuticos, contribuyendo directamente a la sostenibilidad y al bienestar de todos.</p>
+        <div class="image-section animate-on-scroll">
+            <img src="images/IMAGEN 5.jpg" alt="Importancia del reciclaje">
+        </div>
+    </section>
+
+    <section id="que-depositar">
+        <h2 class="animate-on-scroll">Qué sí depositar y qué no depositar</h2>
+        <hr>
+        <table class="depositar-table animate-on-scroll">
+            <thead>
+                <tr>
+                    <th>Qué sí depositar</th>
+                    <th>Qué no depositar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Medicamentos vencidos o parcialmente usados.</td>
+                    <td>Jeringas, agujas o elementos cortopunzantes.</td>
+                </tr>
+                <tr>
+                    <td>Cápsulas, tabletas o jarabes en mal estado.</td>
+                    <td>Termómetros, gasas o algodón usados.</td>
+                </tr>
+                <tr>
+                    <td>Empaques y blísteres vacíos de medicamentos.</td>
+                    <td>Envases de alimentos, bebidas o cosméticos.</td>
+                </tr>
+                <tr>
+                    <td>Frascos, ampollas o viales con restos de fármacos.</td>
+                    <td>Pilas, baterías o residuos electrónicos.</td>
+                </tr>
+                <tr>
+                    <td>Medicamentos de uso humano u hospitalario no utilizados.</td>
+                    <td>Productos químicos de limpieza o desinfectantes.</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="image-section animate-on-scroll">
+            <img src="images/IMAGEN 6.jpg" alt="Materiales a depositar">
+        </div>
+    </section>
+
+    <section id="datos-curiosos">
+        <h2 class="animate-on-scroll">Datos Curiosos</h2>
+        <hr>
+        <div class="datos-cards animate-on-scroll">
+            <div class="dato-card">
+                <h3>Punto Azul</h3>
+                <p>El programa Punto Azul fue el primer sistema posconsumo de medicamentos aprobado en Colombia, creado en 2010 por la Corporación Punto Azul, con aval del Ministerio de Ambiente y Desarrollo Sostenible.</p>
+            </div>
+            <div class="dato-card">
+                <h3>Recolección</h3>
+                <p>Hasta la fecha, el programa ha logrado recolectar más de 1.500 toneladas de medicamentos vencidos en todo el país, impidiendo su desecho en ríos, suelos y basureros comunes.</p>
+            </div>
+            <div class="dato-card">
+                <h3>REP</h3>
+                <p>La corporación está conformada por más de 50 laboratorios y empresas farmacéuticas, que se unieron para cumplir con la Responsabilidad Extendida del Productor (REP), un principio ambiental que los obliga a hacerse cargo de los residuos que generan.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="mapa">
+        <h2 class="animate-on-scroll">Encuentra el Punto Azul más cercano</h2>
+        <hr>
+        <p class="animate-on-scroll">Usa el mapa interactivo a continuación para localizar el punto de recolección más cercano a tu ubicación. Activa la geolocalización en tu navegador para una experiencia más precisa.</p>
+        <div class="map-container animate-on-scroll">
+            <iframe src="https://mapa.puntoazul.com.co/" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <section id="boton">
+        <h2 class="animate-on-scroll">Visita la Página Oficial</h2>
+        <hr>
+        <p class="animate-on-scroll">Para más información detallada, visita el sitio web oficial de Puntos Azules.</p>
+        <a href="https://puntoazul.com.co/" class="button animate-on-scroll" target="_blank">Ir a la Página Oficial</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Puntos Azules. Todos los derechos reservados. Recicla por un mejor futuro.</p>
+    </footer>
+
+    <script>
+        // Animación de scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observar todos los elementos con clase animate-on-scroll
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Cerrar menú móvil al hacer clic en un enlace
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('menu-toggle').checked = false;
+            });
+        });
+
+        // Cerrar menú móvil al hacer clic fuera del menú (en la pantalla)
+        document.addEventListener('click', (event) => {
+            const nav = document.querySelector('nav');
+            const menuToggle = document.getElementById('menu-toggle');
+            if (!nav.contains(event.target)) {
+                menuToggle.checked = false;
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
